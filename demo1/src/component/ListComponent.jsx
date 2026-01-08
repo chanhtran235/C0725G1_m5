@@ -1,6 +1,9 @@
 import DeleteComponent from "../component/DeleteComponent.jsx";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {getAll} from "../service/studentService.js";
+import {Button} from "react-bootstrap";
+import {Outlet, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const ListComponent = ()=>{
     const [studentList, setStudentList] = useState([]);
@@ -10,22 +13,30 @@ const ListComponent = ()=>{
         id:"",
         name: ""
     });
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         console.log("--------Effect run-------");
         setStudentList([...getAll()])
-    },[isShowModal]);
+    },[isReloading]);
 
     const closeModal = ()=>{
       setIsShowModal(false);
     }
 
-    const handleShowModal = (student)=>{
+    const handleShowModal =(student)=>{
         setDeleteStudent(student);
         setIsShowModal(true);
     }
     return (
         <>   {console.log("--------list render---------")}
             <h1>Danh sách</h1>
+            <Link className={'btn btn-success btn-sm'} to={'/students/add'} >Add new student</Link>
+            <button className={'btn btn-success btn-sm'} onClick={()=>{
+                navigate("/students/add")
+            }}>Thêm mới</button>
+            <Outlet/>
             <table>
                 <thead>
                 <tr>
@@ -46,6 +57,8 @@ const ListComponent = ()=>{
                                     handleShowModal(s);
                                 }}>Delete
                                 </button>
+                                <Link to={`/students/${s.id}`}>Detail</Link>
+                                <Link to={`/students/detail/${s.id}`}>Detail</Link>
                             </td>
                         </tr>
                     )
@@ -53,10 +66,12 @@ const ListComponent = ()=>{
                 </tbody>
 
             </table>
-            <DeleteComponent isShowModal={isShowModal}
-                             deleteStudent={deleteStudent}
-                             closeModal = {closeModal}
-            />
+            {<DeleteComponent isShowModal={isShowModal}
+                                           deleteStudent={deleteStudent}
+                                           closeModal = {closeModal}
+                                           setIsReloading = {setIsReloading}
+            />}
+
         </>
     );
 }

@@ -1,0 +1,30 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "chánh",
+      "class": {
+        "id": 1,
+        "name": "C07"
+      }
+    },
+    {
+      "id": 2,
+      "name": "chánh2",
+      "class": {
+        "id": 1,
+        "name": "C07"
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": 1,
+      "name": "C07"
+    },
+    {
+      "id": 1,
+      "name": "C07"
+    }
+  ]
+}

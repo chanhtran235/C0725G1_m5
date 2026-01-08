@@ -21,3 +21,9 @@ export function deleteById(id){
         }
     }
 }
+export function findById(id){
+   return  studentList.find((e)=>e.id==id);
+}
+export function add(student){
+    studentList.push(student);
+}

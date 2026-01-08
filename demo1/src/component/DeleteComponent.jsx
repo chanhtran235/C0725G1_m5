@@ -1,13 +1,15 @@
 import {Button, Modal} from "react-bootstrap";
 import {deleteById} from "../service/studentService.js";
+import React from "react";
 
-const DeleteComponent = ({isShowModal,deleteStudent,closeModal})=>{
+const DeleteComponent = ({isShowModal,deleteStudent,closeModal,setIsReloading})=>{
     const handleClose = ()=>{
          closeModal();
     }
     const handleDelete =()=>{
          deleteById(deleteStudent.id);
          closeModal();
+         setIsReloading(pre=>!pre);
     }
     return (
         <>
@@ -32,4 +34,4 @@ const DeleteComponent = ({isShowModal,deleteStudent,closeModal})=>{
         </>
     )
 }
-export default DeleteComponent ;
+export default DeleteComponent  ;
