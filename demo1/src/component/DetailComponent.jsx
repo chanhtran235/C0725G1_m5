@@ -9,8 +9,13 @@ const DetailComponent =()=>{
     });
     const {id} = useParams();
     useEffect(() => {
-        setDetailStudent(findById(id))
-    }, []);
+       const fetData = async ()=>{
+           let student = await findById(id);
+           setDetailStudent(student);
+       }
+       fetData();
+    }, [id]);
+
     return(
         <>
             <h1> Chi tiết</h1>

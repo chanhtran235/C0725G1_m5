@@ -2,7 +2,7 @@ import DeleteComponent from "../component/DeleteComponent.jsx";
 import React, {useCallback, useEffect, useState} from "react";
 import {getAll} from "../service/studentService.js";
 import {Button} from "react-bootstrap";
-import {Outlet, useNavigate} from "react-router-dom";
+import {data, Outlet, useNavigate} from "react-router-dom";
 import {Link} from "react-router-dom";
 
 const ListComponent = ()=>{
@@ -18,7 +18,16 @@ const ListComponent = ()=>{
 
     useEffect(() => {
         console.log("--------Effect run-------");
-        setStudentList([...getAll()])
+        // getAll().then(data=>{
+        //     setStudentList(data)
+        // });
+        const fetData = async ()=>{
+            let list = await getAll();
+            setStudentList(list);
+
+        }
+        fetData();
+
     },[isReloading]);
 
     const closeModal = ()=>{
@@ -43,6 +52,7 @@ const ListComponent = ()=>{
                     <th>STT</th>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Class Name</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,6 +62,7 @@ const ListComponent = ()=>{
                             <td>{i + 1}</td>
                             <td>{s.id}</td>
                             <td>{s.name}</td>
+                            <td>{s.classCG?.name}</td>
                             <td>
                                 <button className={'btn btn-danger btn-sm'} onClick={() => {
                                     handleShowModal(s);
@@ -66,7 +77,7 @@ const ListComponent = ()=>{
                 </tbody>
 
             </table>
-            {<DeleteComponent isShowModal={isShowModal}
+            {isShowModal&&<DeleteComponent isShowModal={isShowModal}
                                            deleteStudent={deleteStudent}
                                            closeModal = {closeModal}
                                            setIsReloading = {setIsReloading}

@@ -2,16 +2,28 @@
   "students": [
     {
       "id": 1,
-      "name": "chánh",
-      "class": {
+      "name": "chánh1",
+      "classCG": {
         "id": 1,
         "name": "C07"
       }
     },
     {
       "id": 2,
-      "name": "chánh2",
-      "class": {
+      "name": "chánh1",
+      "classCG": {
+        "id": 1,
+        "name": "C07"
+      }
+    },
+    {
+      "id": 3,
+      "name": "chánh3"
+    },
+    {
+      "id": 4,
+      "name": "Thanh Cong",
+      "classCG": {
         "id": 1,
         "name": "C07"
       }
@@ -23,8 +35,8 @@
       "name": "C07"
     },
     {
-      "id": 1,
-      "name": "C07"
+      "id": 2,
+      "name": "C08"
     }
   ]
 }

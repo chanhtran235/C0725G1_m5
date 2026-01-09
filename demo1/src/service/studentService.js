@@ -1,29 +1,44 @@
-const studentList =[
-    {
-        id: 1,
-        name: "chánh1"
-    },
-    {
-        id: 2,
-        name: "chánh2"
-    }
-]
+import axios from "axios";
+const URL_BE = "http://localhost:8080"
 
-export function getAll(){
+export async function getAll() {
     // call api;
-    return [...studentList];
-}
-export function deleteById(id){
-    for (let i = 0; i <studentList.length ; i++) {
-        if (studentList[i].id==id){
-            studentList.splice(i,1);
-            break;
-        }
+    try {
+        const res = await axios.get(`${URL_BE}/students`);
+        return res.data;
+    } catch (e) {
+        console.log(e);
     }
+    return [];
 }
-export function findById(id){
-   return  studentList.find((e)=>e.id==id);
+
+export async function deleteById(id) {
+    try {
+        const res = await axios.delete(`${URL_BE}/students/${id}`);
+        return res.status == 200;
+    } catch (e) {
+        console.log(e);
+    }
+    return false;
 }
-export function add(student){
-    studentList.push(student);
+
+export async function findById(id) {
+    try {
+        const res = await axios.get(`${URL_BE}/students/${id}`);
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+    return null;
+}
+
+export async function add(student) {
+    try {
+        const res = await axios.post(`${URL_BE}/students`,student);
+        return res.status == 201;
+
+    } catch (e) {
+        console.log(e);
+    }
+    return false;
 }
