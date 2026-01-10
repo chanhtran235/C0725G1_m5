@@ -7,12 +7,14 @@ import HomeComponent from "./component/HomeComponent.jsx";
 import AddComponent from "./component/AddComponent.jsx";
 import DetailComponent from "./component/DetailComponent.jsx";
 import {ToastContainer} from "react-toastify";
+import LoginComponent from "./component/login/LoginComponent.jsx";
 
 function App() {
     return (
         <>
             <HeaderComponent/>
             <Routes>
+                <Route path={'/login'} element={<LoginComponent/>}/>
                 <Route path={'/'} element={<HomeComponent/>}/>
                 <Route path={'/students'} element={<ListComponent/>}>
                     <Route path={':id'} element={<DetailComponent/>}/>

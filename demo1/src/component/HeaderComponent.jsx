@@ -1,11 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js'
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../redux/action.js";
 
 const HeaderComponent = () => {
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
+    }
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-light">
+            <nav className="container-fluid navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">Navbar</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -38,12 +46,16 @@ const HeaderComponent = () => {
                             <li className="nav-item">
                                 <a className="nav-link disabled">Disabled</a>
                             </li>
+                            {!auth.account && <li className="nav-item">
+                                <Link className="nav-link" to={'/login'}>Login</Link>
+                            </li>}
+                            {auth.account&& <li className="nav-item">
+                                <button onClick={handleLogout} className="nav-link">Logout</button>
+                            </li>}
+                            <li className="nav-item">
+                                <span className="nav-link">{auth?.account?.username}</span>
+                            </li>
                         </ul>
-                        <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search"
-                                   aria-label="Search"/>
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
                     </div>
                 </div>
             </nav>
